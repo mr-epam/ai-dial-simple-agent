@@ -8,12 +8,14 @@ class SearchUsersTool(BaseUserServiceTool):
     @property
     def name(self) -> str:
         #TODO: Provide tool name as `search_users`
-        raise NotImplementedError()
+        ## raise NotImplementedError()
+        return "search_users"
 
     @property
     def description(self) -> str:
         #TODO: Provide description of this tool
-        raise NotImplementedError()
+        ## raise NotImplementedError()
+        return "Tool for searching users by various attributes."
 
     @property
     def input_schema(self) -> dict[str, Any]:
@@ -24,10 +26,38 @@ class SearchUsersTool(BaseUserServiceTool):
         # - email: str
         # - gender: str
         # None of them are required (see UserClient.search_users method)
-        raise NotImplementedError()
+        ## raise NotImplementedError()
+        return {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user to search for"
+                },
+                "surname": {
+                    "type": "string",
+                    "description": "The surname of the user to search for"
+                },
+                "email": {
+                    "type": "string",
+                    "description": "The email of the user to search for"
+                },
+                "gender": {
+                    "type": "string",
+                    "description": "The gender of the user to search for"
+                }
+            },
+            "required": []
+        }
 
     def execute(self, arguments: dict[str, Any]) -> str:
         #TODO:
         # 1. Call user_client search_users (with `**arguments`) and return its results
         # 2. Optional: You can wrap it with `try-except` and return error as string `f"Error while searching users: {str(e)}"`
-        raise NotImplementedError()
+        ## raise NotImplementedError()
+        try:
+            result = self.user_client.search_users(**arguments)
+            return result
+        except Exception as e:
+            return f"Error while searching users: {str(e)}"
+
