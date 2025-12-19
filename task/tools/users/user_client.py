@@ -72,6 +72,11 @@ class UserClient:
             json=user_create_model.model_dump()
         )
 
+        # print the request payload for debugging
+        print(f"Request payload: {user_create_model.model_dump()}")
+        print(f"Response status code: {response.status_code}")
+        print(f"Response text: {response.text}")
+
         if response.status_code == 201:
             return f"User successfully added: {response.text}"
 
