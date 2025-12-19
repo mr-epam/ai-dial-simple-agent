@@ -43,7 +43,7 @@ class GetUserByIdTool(BaseUserServiceTool):
         ## raise NotImplementedError()
         user_id = arguments.get("id")
         try:
-            result = self.user_client.get_user(user_id)
+            result = self._user_client.get_user(user_id)
             return result
         except Exception as e:
             return f"Error while retrieving user by id: {str(e)}"

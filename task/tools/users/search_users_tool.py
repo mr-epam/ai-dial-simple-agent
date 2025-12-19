@@ -56,7 +56,7 @@ class SearchUsersTool(BaseUserServiceTool):
         # 2. Optional: You can wrap it with `try-except` and return error as string `f"Error while searching users: {str(e)}"`
         ## raise NotImplementedError()
         try:
-            result = self.user_client.search_users(**arguments)
+            result = self._user_client.search_users(**arguments)
             return result
         except Exception as e:
             return f"Error while searching users: {str(e)}"

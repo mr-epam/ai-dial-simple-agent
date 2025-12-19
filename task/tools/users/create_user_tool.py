@@ -32,7 +32,7 @@ class CreateUserTool(BaseUserServiceTool):
         ## raise NotImplementedError()
         user_data = UserCreate.model_validate(arguments)
         try:
-            result = self.user_client.add_user(user_data)
+            result = self._user_client.add_user(user_data)
             return result   
         except Exception as e:
             return f"Error while creating a new user: {str(e)}"

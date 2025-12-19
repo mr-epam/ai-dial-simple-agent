@@ -51,7 +51,7 @@ class UpdateUserTool(BaseUserServiceTool):
         new_info_data = arguments.get("new_info")
         new_info = UserUpdate.model_validate(new_info_data)
         try:
-            result = self.user_client.update_user(user_id, new_info)
+            result = self._user_client.update_user(user_id, new_info)
             return result
         except Exception as e:
             return f"Error while updating user by id: {str(e)}"

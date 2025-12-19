@@ -43,7 +43,7 @@ class DeleteUserTool(BaseUserServiceTool):
         ## raise NotImplementedError()
         user_id = arguments.get("id")
         try:
-            result = self.user_client.delete_user(user_id)
+            result = self._user_client.delete_user(user_id)
             return result
         except Exception as e:
             return f"Error while deleting user by id: {str(e)}"
