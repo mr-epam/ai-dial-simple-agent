@@ -34,11 +34,12 @@ class DialClient:
         self.__tools_dict = {}
         if tools:
             for tool in tools:
-                self._tools.append({
+                """ self._tools.append({
                     "name": tool.name,
                     "description": tool.description,
                     "parameters": tool.input_schema
-                })
+                }) """
+                self._tools.append(tool.schema)
                 self.__tools_dict[tool.name] = tool
         print(f"DialClient initialized with endpoint: {self._endpoint}")
         print(f"Available tools: {json.dumps(self._tools, indent=2)}")
@@ -101,7 +102,7 @@ class DialClient:
             content = message_data.get("content", "")
             tool_calls = message_data.get("tool_calls", [])
             ai_response = Message(
-                role=Role.ASSISTANT,
+                role=Role.AI,
                 content=content,
                 tool_calls=tool_calls
             )
