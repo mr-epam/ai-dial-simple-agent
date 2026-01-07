@@ -1,6 +1,9 @@
 import os
 
-from task.client import DialClient
+import asyncio
+
+#from task.client import DialClient
+from task.async_client import DialClient
 from task.models.conversation import Conversation
 from task.models.message import Message
 from task.models.role import Role
@@ -16,7 +19,7 @@ from task.tools.web_search import WebSearchTool
 DIAL_ENDPOINT = "https://ai-proxy.lab.epam.com"
 API_KEY = os.getenv('DIAL_API_KEY')
 
-def main():
+async def main():
     deployment_name = "gpt-4o"
     #TODO:
     # 1. Create UserClient
@@ -49,13 +52,26 @@ def main():
 
     while True:
         user_input = input("> ").strip()
+
+        if user_input.lower() == "exit":
+            print("Exiting the chat. Goodbye!")
+            break
+
         conversation.add_message(Message(role=Role.USER, content=user_input))
-        assistant_message = dial_client.get_completion(conversation.messages)
+
+        # assistant_message = dial_client.get_completion(conversation.messages) # task.client
+        assistant_message = await dial_client.get_completion(conversation.messages) # task.async_client | AsyncDial with stream=True
+
         conversation.add_message(assistant_message)
-        print(assistant_message.content)
+
+        print("🤖:", assistant_message.content)
+        print("=" * 100)
+        print()
 
 
-main()
+asyncio.run(
+    main()
+)
 
 #TODO:
 # Request sample:

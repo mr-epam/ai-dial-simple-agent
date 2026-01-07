@@ -95,17 +95,21 @@ class DialClient:
             if not choices:
                 raise ValueError("No choices returned in response.")
             choice = choices[0]
+
             if print_request:
                 print("Response Choice:")
                 print(json.dumps(choice, indent=2))
+
             message_data = choice.get("message", {})
             content = message_data.get("content", "")
             tool_calls = message_data.get("tool_calls", [])
+
             ai_response = Message(
                 role=Role.AI,
                 content=content,
                 tool_calls=tool_calls
             )
+
             if choice.get("finish_reason") == "tool_calls":
                 messages.append(ai_response)
                 tool_messages = self._process_tool_calls(tool_calls)
